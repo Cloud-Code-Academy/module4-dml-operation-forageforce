@@ -68,14 +68,22 @@ public with sharing class DMLOperations {
      */
     public static Id insertNewContact(Id accountId) {
         // Create a new Contact instance
+        Contact newCon = new Contact();
 
         // Set some fields on the Contact
+        newCon.FirstName = 'Andrew';
+        newCon.LastName = 'Mendonsa';
+        newCon.Email = 'mendonsaap@gmail.com';
+        newCon.Phone = '12345678';
+
         // Set the AccountId field to the given accountId
+        newCon.AccountId = accountId;
 
         // Insert the Contact into the database
+        insert newCon;
 
         // Return the Id of the newly created Contact
-        return null;
+        return newCon.Id;
     }
 
     /**
