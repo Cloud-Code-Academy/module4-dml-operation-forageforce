@@ -31,13 +31,18 @@ public with sharing class DMLOperations {
      */
     public static Id insertNewAccount() {
         // Create a new Account instance
+        Account newAcc = new Account();
 
         // Set some fields on the Account
+        newAcc.Name = 'Mendonsa' + String.valueOf(Datetime.now().getTime());
+        newAcc.Phone = '12345678';
+        newAcc.Industry = 'Technology';
 
         // Insert the Account into the database
+        insert newAcc;
 
         // Return the Id of the newly created Account
-        return null;
+        return newAcc.Id;
     }
 
     /**
