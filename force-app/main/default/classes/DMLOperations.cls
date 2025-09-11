@@ -264,8 +264,13 @@ public with sharing class DMLOperations {
      * @param numOfCases The number of cases to create.
      */
     public static void createAndDeleteCases(String accountId, Integer numOfCases) {
+        List<Case> myCases = new List<Case>();
+        for (Integer i = 0; i < numOfCases; i++) {
+            myCases.add(new Case(Subject = 'Test Case ' + String.valueOf(i), AccountId = accountId));
+        }
         // Insert the cases
-
+        insert myCases;
         // Delete the cases
+        delete myCases;
     }
 }
