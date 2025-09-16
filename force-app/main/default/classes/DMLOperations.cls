@@ -221,20 +221,40 @@ public with sharing class DMLOperations {
 	 * Manage the association between Contacts and Accounts
 	 * Ensure that for each Contact in the provided list, there is a corresponding Account Name that matches the Contact's last name.
 	 * If such an Account does not exist, the method creates it; if it does, the method ensures the Contact is associated with it. (Hint: use previous upsertAccount method - this may cause bad practices but for learning purposes it's okay.)
-     * Example Contact.LastName = 'Doe' Link to Account.Name = 'Doe' 
+     * Example Contact.LastName = 'Doe' Link to Account.Name = 'Doe'
      * Example Contact.LastName = 'Jane' Link to Account.Name = 'Jane'
 	 * @param contactsToUpsert List of Contacts to be upserted and linked to accounts.
 	 */
 	public static void upsertAccountsWithContacts(List<Contact> contactsToUpsert) {
+        String accNameToSearch = '';
+        Account upsertedAcct = new Account();
+        // Loop through each Contact
+        for (Contact c : contactsToUpsert) {
+            // Extract the Account Name from Contact's LastName
+            accNameToSearch = c.LastName;
+            // Get the account based on the name or create one if it doesn't exist
+            upsertedAcct = upsertAccount(accNameToSearch);
+            // Link the Contact to its Account using the Account Id
+            c.AccountId = upsertedAcct.Id;
+        }
+        /*
+        Could not figure out how to solve it this way. Could someone help me work through this?
+        List<String> lastNames = new List<String>();
 		// Loop through each Contact
-
-		// Extract the Account Name from Contact's LastName
-
-		// Get the account based on the name or create one if it doesn't exist
-
-		// Link the Contact to its Account using the Account Id
+        for (Contact c : contactsToUpsert) {
+            // Extract the Account Name from Contact's LastName
+            lastNames.add(c.LastName);
+        }
+        // Get the account based on the name or create one if it doesn't exist
+        List<Account> accounts = [SELECT Id FROM Account WHERE Name IN :lastNames];
+        for (Account acc : accounts) {
+            
+            // Link the Contact to its Account using the Account Id
+            }
+        }*/
 
 		// Upsert the Contacts
+        upsert contactsToUpsert;
 	}
 
     /**
